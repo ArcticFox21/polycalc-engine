@@ -1,10 +1,30 @@
-#![allow(dead_code)]
+#![cfg_attr(test, feature(test))]
 
 mod units;
 mod engine;
+mod tests;
 
 use std::time::*;
 use crate::units::{Unit, UnitType};
+
+#[cfg(test)]
+mod benches {
+    extern crate test;
+    use self::test::{Bencher};
+    use super::{engine, Unit, UnitType};
+
+    #[bench]
+    fn test_optim(b: &mut Bencher) {
+        let attackers = vec![Unit::from(UnitType::Defender(15)); 5];
+        let def = Unit::from(UnitType::Defender(15));
+        b.iter(
+            || engine::optim(
+                &attackers,
+                &def
+            )
+        );
+    }
+}
 
 fn main() {
     for i in 1..6 {
@@ -17,7 +37,7 @@ fn main() {
                 unit; i
             ];
 
-            let mut _attacker = Unit::from(UnitType::Defender(15));
+            // let mut _attacker = Unit::from(UnitType::Defender(15));
 
             let defender = Unit::from(UnitType::Defender(15));
             let start = SystemTime::now();
