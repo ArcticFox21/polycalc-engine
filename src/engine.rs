@@ -65,6 +65,15 @@ pub fn attack(attacker: &mut Unit, defender: &mut Unit, solution: &mut Solution)
     if defender.health <= 0 {
         return;
     }
+    
+    //Increase max_health by 5 if a unit is veteran
+    if attacker.vet {
+        attacker.max_health += 5;
+    }
+
+    if defender.vet {
+        defender.max_health += 5;
+    }
 
     // calculate attack force and defence force
     let attack_force = attacker.attack * (attacker.health as f32) / (attacker.max_health as f32);
