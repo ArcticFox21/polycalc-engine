@@ -66,11 +66,10 @@ pub fn attack(attacker: &mut Unit, defender: &mut Unit, solution: &mut Solution)
         return;
     }
     
-    //Increase max_health by 5 if a unit is veteran
+    // Increase max_health by 5 if a unit is veteran
     if attacker.vet {
         attacker.max_health += 5;
     }
-
     if defender.vet {
         defender.max_health += 5;
     }
